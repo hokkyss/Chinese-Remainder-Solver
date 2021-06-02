@@ -57,6 +57,10 @@ function modular_inverse(a, m) {
     u2 = tempu - q * u2;
     v2 = tempv - q * v2;
   }
+
+  while (u < 0 || u > m) {
+    u = (u + m) % m;
+  }
   return u;
 }
 export { modular_inverse };
