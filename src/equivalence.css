@@ -1,0 +1,19 @@
+.equivalence {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: large;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  border-bottom: 1px solid grey;
+}
+
+.equivalence-left,
+.equivalence-right {
+  display: flex;
+  margin: 2%;
+}
+
+.equivalence-right {
+  font-style: italic;
+  display: flex;
+}

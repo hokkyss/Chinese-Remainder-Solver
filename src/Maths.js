@@ -100,3 +100,20 @@ function solve_two_CRT(eq1, eq2) {
   return { a: a, m: m };
 }
 export { solve_two_CRT };
+
+function solve_CRT(eqList) {
+  var copy = eqList.slice();
+  var first;
+  var second;
+  let steps = eqList.length - 1;
+  let temp = {};
+
+  for (var i = 1; i <= steps; i++) {
+    first = copy.shift();
+    second = copy.shift();
+    temp = solve_two_CRT(first, second);
+    copy.push(temp);
+  }
+  return copy[0];
+}
+export { solve_CRT };

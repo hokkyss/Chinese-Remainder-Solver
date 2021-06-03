@@ -26,7 +26,6 @@ a {
 }
 
 .container {
-  background-color: red;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -40,26 +39,28 @@ a {
   padding: 1.5%;
   width: 30%;
   height: 100%;
-  background-color: grey;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  border-radius: 2px solid black;
 }
 
 .result {
   width: 100%;
-  background-color: aqua;
-  margin: 0 2% 2% 2%;
+  margin: 0 2% 0% 2%;
   font-size: 20px;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-style: italic;
+  border: 2px solid black;
 }
 
 .input-container {
-  background-color: blue;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
   font-size: 18px;
+  margin-top: 5%;
+  padding: 1%;
+  border: 2px solid black;
 }
 
 .input {
@@ -69,5 +70,22 @@ a {
 .submit-button,
 .add-button {
   margin-left: 3%;
-  width: 22%;
+  width: 20%;
+}
+
+.equivalence-container {
+  margin-top: 5%;
+  max-height: 400px;
+  height: 359px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  width: 100%;
+  overflow: auto;
+  border: 2px solid black;
+  margin-bottom: 5%;
+}
+
+.steps-button {
+  font-size: 18px;
 }
