@@ -72,6 +72,8 @@ function GCD(a, b) {
 export { GCD };
 
 function is_coprime(l) {
+  if (l.length === 0) return { is: false, i: -2, j: -2 };
+
   for (var i = 0; i < l.length; i++) {
     for (var j = i + 1; j < l.length; j++) {
       if (GCD(l[i].m, l[j].m) === 1) continue;
@@ -105,8 +107,12 @@ function solve_CRT(eqList) {
   var copy = eqList.slice();
   var first;
   var second;
+  var temp;
   let steps = eqList.length - 1;
-  let temp = {};
+
+  if (steps === -1) {
+    return {};
+  }
 
   for (var i = 1; i <= steps; i++) {
     first = copy.shift();

@@ -14,7 +14,7 @@ function Home() {
   ]);
   const [showSteps, setShowSteps] = useState(false);
   const [result, setResult] = useState({});
-  const [valid, setValid] = useState(true);
+  const [valid, setValid] = useState({ is: true, i: -1, j: -1 });
 
   const addEquivalence = () => {
     setEquivalence(equivalence.concat(obj));
@@ -40,12 +40,16 @@ function Home() {
   useEffect(() => {
     setResult(solve_CRT(equivalence));
     setValid(is_coprime(equivalence));
+
+    if (equivalence.length === 0) setShowSteps(false);
   }, [equivalence]);
 
   return (
     <div className="container">
       <div className="left">
-        {valid.is ? (
+        {equivalence.length === 0 ? (
+          <div className="result">Input your equivalence!</div>
+        ) : valid.is ? (
           <div className="result">
             x &equiv; {result.a} (mod {result.m})
           </div>
@@ -62,7 +66,6 @@ function Home() {
             type="number"
             id="a"
             className="input"
-            placeholder={a}
             value={a}
             min={0}
           />{" "}
@@ -72,7 +75,6 @@ function Home() {
             type="number"
             id="m"
             className="input"
-            placeholder={m}
             value={m}
             min={2}
           />
