@@ -85,7 +85,7 @@ function is_coprime(l) {
 export { is_coprime };
 
 // Precondition: is_coprime(all equivalence) === 1
-function solve_two_CRT(eq1, eq2) {
+function solve_two_CRT(eq1, eq2, no) {
   const a1 = eq1.a;
   const m1 = eq1.m;
   const a2 = eq2.a;
@@ -99,27 +99,53 @@ function solve_two_CRT(eq1, eq2) {
 
   while (a >= m || a < 0) a = ((a % m) + m) % m;
 
-  return { a: a, m: m };
+  return { id: `res${no}`, a: a, m: m };
 }
 export { solve_two_CRT };
 
 function solve_CRT(eqList) {
+  if (eqList.length === 0) return { step: [] };
+
   var copy = eqList.slice();
   var first;
   var second;
   var temp;
   let steps = eqList.length - 1;
-
-  if (steps === -1) {
-    return {};
-  }
+  let actions = [];
 
   for (var i = 1; i <= steps; i++) {
+    const init = copy.slice();
+
     first = copy.shift();
     second = copy.shift();
-    temp = solve_two_CRT(first, second);
+    temp = solve_two_CRT(first, second, i);
     copy.push(temp);
+
+    const final = copy.slice();
+
+    const step1 = `- Declare ${first.id} as x = ${first.a} + ${first.m}k`;
+    const step2 = `- Substitute x to ${second.id}. Resulting in ${first.a} + ${first.m}k ≡ ${second.a} (mod ${second.m})`;
+    const step3 = `- Subtract ${first.a} from both sides`;
+    const step4 = `- Multiply both sides by ${modular_inverse(
+      first.m,
+      second.m
+    )}, which is the inverse modulo of ${first.m} mod ${second.m}`;
+    const step5 = `- The result is k ≡ ${parseInt(
+      (temp.a - first.a) / first.m
+    )} (mod ${second.m}).`;
+    const step6 = `- Declare k as k = ${parseInt(
+      (temp.a - first.a) / first.m
+    )} + ${second.m}l. Substitute k to ${first.id}.`;
+    const step7 = `- The result is x = ${temp.a} + ${temp.m}l.`;
+    const step8 = `- Declare x as x ≡ ${temp.a} (mod ${temp.m}), equivalence ${temp.id}`;
+
+    actions.push({
+      init: init,
+      final: final,
+      no: i,
+      step: [step1, step2, step3, step4, step5, step6, step7, step8],
+    });
   }
-  return copy[0];
+  return { res: copy[0], step: actions };
 }
 export { solve_CRT };

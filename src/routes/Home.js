@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { is_coprime, solve_CRT } from "../utilities/Maths";
 import Equivalence from "../components/Equivalence";
+import Steps from "../components/Steps";
 import "../styles/index.css";
 
 function Home() {
@@ -15,6 +16,7 @@ function Home() {
   const [showSteps, setShowSteps] = useState(false);
   const [result, setResult] = useState({});
   const [valid, setValid] = useState({ is: true, i: -1, j: -1 });
+  const [steps, setSteps] = useState([]);
 
   const addEquivalence = () => {
     setEquivalence(equivalence.concat(obj));
@@ -38,10 +40,13 @@ function Home() {
   };
 
   useEffect(() => {
-    setResult(solve_CRT(equivalence));
-    setValid(is_coprime(equivalence));
+    const { res, step } = solve_CRT(equivalence);
+    const validity = is_coprime(equivalence);
+    setResult(res);
+    setSteps(step);
+    setValid(validity);
 
-    if (equivalence.length === 0) setShowSteps(false);
+    if (equivalence.length === 0 || !validity.is) setShowSteps(false);
   }, [equivalence]);
 
   return (
@@ -104,9 +109,9 @@ function Home() {
 
       {showSteps && (
         <div className="right">
-          <a href="https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md">
-            BBBB
-          </a>
+          {steps.length > 0
+            ? steps.map((step) => <Steps step={step} key={step.no} />)
+            : "No steps needed"}
         </div>
       )}
     </div>
