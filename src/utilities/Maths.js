@@ -75,7 +75,7 @@ function is_coprime(l) {
   for (var i = 0; i < l.length; i++) {
     for (var j = i + 1; j < l.length; j++) {
       if (GCD(l[i].m, l[j].m) === 1) continue;
-      return { is: false, i: i, j: j };
+      return { is: false, i: l[i].id, j: l[j].id };
     }
   }
   return { is: true, i: -1, j: -1 };

@@ -2,10 +2,9 @@ import {
   power,
   euler_totient_function,
   modular_inverse,
-  GCD,
   is_coprime,
   solve_two_CRT,
-} from "./Maths";
+} from "../utilities/Maths";
 
 test("power", () => {
   expect(power(2, 5)).toBe(32);

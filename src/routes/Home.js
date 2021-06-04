@@ -1,27 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { is_coprime, solve_two_CRT, solve_CRT } from "./Maths";
-import Equivalence from "./Equivalence";
-import "./index.css";
+import { is_coprime, solve_CRT } from "../utilities/Maths";
+import Equivalence from "../components/Equivalence";
+import "../styles/index.css";
 
 function Home() {
   const [a, setA] = useState(0);
   const [m, setM] = useState(2);
   const [obj, setObj] = useState({ id: 1, a: 0, m: 2 });
   const [equivalence, setEquivalence] = useState([
-    { id: -2, a: 3, m: 5 },
-    { id: -1, a: 5, m: 7 },
-    { id: 0, a: 7, m: 11 },
+    { id: "ex0", a: 3, m: 5 },
+    { id: "ex1", a: 5, m: 7 },
+    { id: "ex2", a: 7, m: 11 },
   ]);
-  const [stepsButton, setStepsButton] = useState(false);
   const [showSteps, setShowSteps] = useState(false);
   const [result, setResult] = useState({});
-
-  const handleSubmit = () => {
-    const valid = is_coprime(equivalence);
-    if (valid) {
-    }
-    setStepsButton(true);
-  };
+  const [valid, setValid] = useState(true);
 
   const addEquivalence = () => {
     setEquivalence(equivalence.concat(obj));
@@ -44,17 +37,24 @@ function Home() {
     alert(`equivalence ${id} is removed`);
   };
 
-  // dari video https://youtu.be/JgrN9tOKz0s?t=505
   useEffect(() => {
     setResult(solve_CRT(equivalence));
+    setValid(is_coprime(equivalence));
   }, [equivalence]);
 
   return (
     <div className="container">
       <div className="left">
-        <div className="result">
-          x &equiv; {result.a} (mod {result.m})
-        </div>
+        {valid.is ? (
+          <div className="result">
+            x &equiv; {result.a} (mod {result.m})
+          </div>
+        ) : (
+          <div className="result">
+            Equivalence {valid.i} and {valid.j} are not coprime!
+          </div>
+        )}
+
         <div className="input-container">
           x &equiv;{" "}
           <input
@@ -77,14 +77,6 @@ function Home() {
             min={2}
           />
           )
-          <button
-            type="submit"
-            value="submit"
-            className="submit-button"
-            onClick={handleSubmit}
-          >
-            Solve
-          </button>
           <button type="button" className="add-button" onClick={addEquivalence}>
             Add
           </button>
@@ -98,7 +90,7 @@ function Home() {
             />
           ))}
         </div>
-        {stepsButton && (
+        {valid.is && (
           <button
             className="steps-button"
             onClick={() => setShowSteps(!showSteps)}
@@ -107,6 +99,7 @@ function Home() {
           </button>
         )}
       </div>
+
       {showSteps && (
         <div className="right">
           <a href="https://github.com/evcohen/eslint-plugin-jsx-a11y/blob/master/docs/rules/anchor-is-valid.md">

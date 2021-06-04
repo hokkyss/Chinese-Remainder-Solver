@@ -1,4 +1,4 @@
-import "./equivalence.css";
+import "../styles/Equivalence.css";
 
 export default function Equivalence({ eq, onClick }) {
   return (
