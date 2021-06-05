@@ -1,18 +1,24 @@
-# Getting Started with Create React App
+# Chinese Remainder Solver
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+You have some difficulties in solving problems regarding Chinese Remainder Theorem? This project could help you!
 
-## Available Scripts
+> This project is deployed to [heroku](https://chinese-remainder-solver.herokuapp.com/) and [netlify](https://chinese-remainder-solver.netlify.app/).
 
-In the project directory, you can run:
+Input (or remove) your modular equivalences, see the changes! You can also read the solution step-by-step.
 
-### `npm start`
+## Features
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+- Input your own modular equivalences!
+- Step-by-step solution
+- Remove your modular equivalences of choice!
 
-### Deployment
+## Setup
 
-This project is deployed to [heroku](https://chinese-remainder-solver.herokuapp.com/) and [netlify](https://chinese-remainder-solver.netlify.app/)
+### Requirements
+
+- [Node.js](https://nodejs.org/en/download/) at least 12.x
+
+### Steps
+
+- run `npm install` on project root directory (only on first time)
+- run `npm start` to run the app in development mode. Open [http://localhost:3000](http://localhost:3000) in browser.
