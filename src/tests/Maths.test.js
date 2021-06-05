@@ -1,22 +1,4 @@
-import {
-  power,
-  euler_totient_function,
-  modular_inverse,
-  is_coprime,
-  solve_two_CRT,
-} from "../utilities/Maths";
-
-test("power", () => {
-  expect(power(2, 5)).toBe(32);
-  expect(power(5, 2)).toBe(25);
-  expect(power(1000000000, 0)).toBe(1);
-  expect(power(0, 111113213)).toBe(0);
-});
-
-test("phi", () => {
-  expect(euler_totient_function(10)).toBe(4);
-  expect(euler_totient_function(17)).toBe(16);
-});
+import { modular_inverse, is_coprime, solve_two_CRT } from "../utilities/Maths";
 
 test("inverse modulo", () => {
   expect((modular_inverse(2, 5) * 2) % 5).toBe(1);
